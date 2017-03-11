@@ -14,8 +14,6 @@ import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
 
-//hallo
-
 public class add_new_post extends AppCompatActivity {
 
     @Override

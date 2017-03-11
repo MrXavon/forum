@@ -30,5 +30,28 @@
             android:layout_below="@+id/titel_beitrag"
             android:layout_marginTop="120dp"
             android:text="TextView" />
+
+        <EditText
+            android:id="@+id/comment_field"
+            android:layout_width="390dp"
+            android:layout_height="53dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:ems="10"
+            android:hint="Dein Kommentar"
+            android:inputType="textPersonName"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout_editor_absoluteY="95dp" />
+
+        <Button
+            android:id="@+id/submit_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            android:layout_alignTop="@+id/comment_field"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

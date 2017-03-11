@@ -24,7 +24,7 @@ public class Beitrag extends AppCompatActivity {
 
 
         String titelString = getIntent().getExtras().get("titel").toString();
-         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child(titelString);
+        DatabaseReference root = FirebaseDatabase.getInstance().getReference().child(titelString);
 
 
         root.addChildEventListener(new ChildEventListener() {
