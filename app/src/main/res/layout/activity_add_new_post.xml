@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.alex_johannes.forum.add_new_post">
+
+    <RelativeLayout
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <EditText
+            android:id="@+id/titel_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Titel"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="4dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <EditText
+            android:id="@+id/beitrag_field"
+            android:layout_width="390dp"
+            android:layout_height="53dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/titel_field"
+            android:layout_marginTop="35dp"
+            android:ems="10"
+            android:hint="Dein Beitrag"
+            android:inputType="textPersonName"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:layout_editor_absoluteY="95dp" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp" />
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/titel_field"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/titel_field"
+            android:layout_marginBottom="89dp"
+            android:text="Hinzufügen"
+            tools:layout_editor_absoluteX="147dp"
+            tools:layout_editor_absoluteY="404dp" />
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>
