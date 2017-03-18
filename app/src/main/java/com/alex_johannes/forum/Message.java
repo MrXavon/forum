@@ -6,14 +6,20 @@ package com.alex_johannes.forum;
 
 public class Message {
     private String message;
+    private String author;
 
     private Message(){}
 
-    public Message(String msg){
+    public Message(String msg, String author){
         this.message=msg;
+        this.author=msg;
     }
 
     public String getMessage(){
         return this.message;
+    }
+
+    public  String getAuthor(){
+        return  this.author;
     }
 }
