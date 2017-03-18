@@ -1,7 +1,7 @@
 package com.alex_johannes.forum;
 
+import android.os.*;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -23,15 +23,20 @@ public class Beitrag extends AppCompatActivity {
 
 
 
-        String titelString = getIntent().getExtras().get("titel").toString();
-         DatabaseReference root = FirebaseDatabase.getInstance().getReference().child(titelString);
-
+        final String titelString = getIntent().getExtras().get("titel").toString();
+         DatabaseReference root =database.getReference().getRoot();
 
         root.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                System.out.print("datasnapshot"+dataSnapshot);
-                beitrag.setText( dataSnapshot.getValue(String.class));
+                if(dataSnapshot.getKey().equals(titelString)){
+                    beitrag.setText(dataSnapshot.getValue().toString());
+                    System.out.println( "IF-Abfrage: "+dataSnapshot.getValue().toString());
+                }
+                System.out.println( "IF-Abfrage: "+dataSnapshot.getValue().toString());
+                //System.out.print("datasnapshot"+dataSnapshot.getValue());
+                //System.out.println( "IF-Abfrage: "+dataSnapshot.hasChildren());
+                //beitrag.setText(dataSnapshot.child("forum-5031d/"+titelString).getValue(Message.class).getMessage());
             }
 
             @Override

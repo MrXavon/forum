@@ -17,7 +17,7 @@ import java.util.Map;
 //hallo
 
 public class add_new_post extends AppCompatActivity {
-
+    private String temp_key;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +29,7 @@ public class add_new_post extends AppCompatActivity {
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference();
+         //final DatabaseReference root = FirebaseDatabase.getInstance().getReference().child("Beitrage");
 
 
 
@@ -37,10 +38,13 @@ public class add_new_post extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //temp_key = root.push().getKey();
                 Map<String, Object> map2 = new HashMap<String, Object>();
                 map2.put(titelText.getText().toString(), beitrag.getText().toString());
-                database.getReference().getRoot().updateChildren(map2);
+                database.getReference().getRoot().child("Beiträge").updateChildren(map2);
+                map2.clear();
+                map2.put("Content", beitrag.getText().toString());
+                database.getReference().getRoot().child("Beiträge/"+titelText.getText()).updateChildren(map2);
                 Intent i= new Intent(add_new_post.this, MainActivity.class);
                 startActivity(i);
             }

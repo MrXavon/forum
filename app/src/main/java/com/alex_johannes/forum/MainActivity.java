@@ -21,8 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                System.out.println("Methode wird ausgeführt");
                 Set<String> set = new HashSet<String>();
                 Iterator i = dataSnapshot.getChildren().iterator();
 
@@ -103,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+//        Map<String, Object> map2 = new HashMap<String, Object>();
+//        map2.put("Titel", "Wie baue ich ein Haus");
+//        map2.put("Inhalt", "Lege viele Steine aufeinader");
+//        database.getReference().getRoot().child("Uhrzeit").updateChildren(map2);
 
 
 
