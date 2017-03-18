@@ -45,6 +45,7 @@ public class add_new_post extends AppCompatActivity {
                 database.getReference().getRoot().child("Beiträge/"+titelText.getText()).updateChildren(map2);
                 Intent i= new Intent(add_new_post.this, MainActivity.class);
                 startActivity(i);
+
             }
         });
 
