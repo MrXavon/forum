@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 Iterator i = dataSnapshot.getChildren().iterator();
 
                 while (i.hasNext()){
-                    set.add(((DataSnapshot)i.next()).getKey());
+                    set.add(((DataSnapshot)i.next()).getValue(Post.class).getTitel());
                 }
 
                 list_posts.clear();

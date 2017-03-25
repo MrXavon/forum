@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,23 +35,27 @@ public class add_new_post extends AppCompatActivity {
 
 
 
-
-
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //temp_key = root.push().getKey();
-                Map<String, Object> map2 = new HashMap<String, Object>();
 //                //Kommentare erstesKommentar = new Kommentare("Toller Beitrag");
 //                Kommentare zweitesKomentar = new Kommentare("Der BEitrag ist ziemlich kacke");
 //
 //                Kommentare[]liste= {erstesKommentar, zweitesKomentar};
 //                Message neueMessage= new Message("Hallöle","Von Mir",liste);
-                map2.put(titelText.getText().toString(), "Test");
-                database.getReference().getRoot().child("Beiträge").updateChildren(map2);
-//                map2.clear();
-//                map2.put("Content", beitrag.getText().toString());
-//                database.getReference().getRoot().child("Beiträge/"+titelText.getText()).updateChildren(map2);
+
+                Post currentPost = new Post(titelText.getText().toString(),"Default",beitrag.getText().toString());
+
+                DatabaseReference root = database.getReference().getRoot().child("Beiträge");
+                temp_key = root.push().getKey();
+
+                //DatabaseReference message_root = root.child(temp_key);
+                Map<String, Object> map2 = new HashMap<String, Object>();
+                map2.put(temp_key, currentPost);
+
+                root.updateChildren(map2);
+
                 Intent i= new Intent(add_new_post.this, MainActivity.class);
                 startActivity(i);
 
