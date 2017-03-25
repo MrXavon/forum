@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         ListView liste = (ListView) findViewById(R.id.listview);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference root =database.getReference().getRoot();
+        DatabaseReference root =database.getReference().getRoot().child("Beiträge");
 
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list_posts);
 

@@ -10,6 +10,7 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.lang.reflect.Array;
 import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,8 +39,12 @@ public class add_new_post extends AppCompatActivity {
             public void onClick(View v) {
                 //temp_key = root.push().getKey();
                 Map<String, Object> map2 = new HashMap<String, Object>();
-                Message neueMessage= new Message("Hallöle","Von Mir");
-                map2.put(titelText.getText().toString(), neueMessage);
+//                //Kommentare erstesKommentar = new Kommentare("Toller Beitrag");
+//                Kommentare zweitesKomentar = new Kommentare("Der BEitrag ist ziemlich kacke");
+//
+//                Kommentare[]liste= {erstesKommentar, zweitesKomentar};
+//                Message neueMessage= new Message("Hallöle","Von Mir",liste);
+                map2.put(titelText.getText().toString(), "Test");
                 database.getReference().getRoot().child("Beiträge").updateChildren(map2);
 //                map2.clear();
 //                map2.put("Content", beitrag.getText().toString());
