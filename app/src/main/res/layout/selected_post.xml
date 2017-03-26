@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:fillViewport="true"     >
+
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20px">
+
+            <TextView
+                android:id="@+id/titel_beitrag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:text="TextView"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/conten_beitrag"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/titel_beitrag"
+                android:layout_marginTop="61dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/author_post_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_below="@+id/conten_beitrag"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="84dp" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="300px"
+                android:layout_marginTop="14dp"
+                android:layout_below="@+id/Kommentare"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ListView
+                        android:id="@+id/comment_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <Button
+                        android:id="@+id/submit_comment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignTop="@+id/comment_field"
+                        android:text="Post" />
+
+                    <EditText
+                        android:id="@+id/comment_field"
+                        android:layout_width="390dp"
+                        android:layout_height="53dp"
+                        android:ems="10"
+                        android:hint="Dein Kommentar"
+                        android:inputType="textPersonName"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        tools:layout_editor_absoluteY="95dp"
+                        android:layout_marginTop="63dp"
+                        android:layout_below="@+id/comment_list"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_toLeftOf="@+id/submit_comment"
+                        android:layout_toStartOf="@+id/submit_comment" />
+
+                </RelativeLayout>
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/Kommentare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kommentare"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_below="@+id/author_post_field"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

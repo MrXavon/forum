@@ -27,6 +27,7 @@ public class add_new_post extends AppCompatActivity {
 
         final EditText titelText = (EditText) findViewById(R.id.titel_field);
         final EditText beitrag = (EditText)findViewById(R.id.beitrag_field);
+        final EditText author = (EditText) findViewById(R.id.author_field);
         Button submitButton = (Button) findViewById(R.id.submit_button);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -39,17 +40,18 @@ public class add_new_post extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //temp_key = root.push().getKey();
-//                //Kommentare erstesKommentar = new Kommentare("Toller Beitrag");
-//                Kommentare zweitesKomentar = new Kommentare("Der BEitrag ist ziemlich kacke");
+//                //Comment erstesKommentar = new Comment("Toller Beitrag");
+//                Comment zweitesKomentar = new Comment("Der BEitrag ist ziemlich kacke");
 //
-//                Kommentare[]liste= {erstesKommentar, zweitesKomentar};
+//                Comment[]liste= {erstesKommentar, zweitesKomentar};
 //                Message neueMessage= new Message("Hallöle","Von Mir",liste);
 
-                Post currentPost = new Post(titelText.getText().toString(),"Default",beitrag.getText().toString());
+
 
                 DatabaseReference root = database.getReference().getRoot().child("Beiträge");
                 temp_key = root.push().getKey();
 
+                Post currentPost = new Post(titelText.getText().toString(),author.getText().toString(),beitrag.getText().toString(),temp_key);
                 //DatabaseReference message_root = root.child(temp_key);
                 Map<String, Object> map2 = new HashMap<String, Object>();
                 map2.put(temp_key, currentPost);

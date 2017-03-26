@@ -9,11 +9,13 @@ public class Post {
     private String titel;
     private String author;
     private String content;
+    private String key;
 
-    public Post(String titel, String author, String content) {
+    public Post(String titel, String author, String content, String key) {
         this.titel = titel;
         this.author = author;
         this.content = content;
+        this.key= key;
     }
     public  Post(){}
 
@@ -27,5 +29,9 @@ public class Post {
 
     public String getContent() {
         return content;
+    }
+
+    public String getKey(){
+        return key;
     }
 }

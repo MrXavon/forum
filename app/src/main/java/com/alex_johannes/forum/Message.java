@@ -1,7 +1,5 @@
 package com.alex_johannes.forum;
 
-import java.lang.reflect.Array;
-
 /**
  * Created by jstoetzel on 18.03.2017.
  */
@@ -9,11 +7,11 @@ import java.lang.reflect.Array;
 public class Message {
     private String message;
     private String author;
-    private Kommentare[] kommentare;
+    private Comment[] kommentare;
 
     private Message(){}
 
-    public Message(String msg, String author, Kommentare[] liste){
+    public Message(String msg, String author, Comment[] liste){
         this.message=msg;
         this.author=msg;
         this.kommentare=liste;
@@ -27,7 +25,7 @@ public class Message {
         return  this.author;
     }
 
-    public  Kommentare[] getKommentare(){
+    public  Comment[] getKommentare(){
         return  this.kommentare;
     }
 }

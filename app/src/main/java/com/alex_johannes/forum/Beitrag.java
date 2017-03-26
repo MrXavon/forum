@@ -2,9 +2,12 @@ package com.alex_johannes.forum;
 
 import android.os.*;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,55 +16,71 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Beitrag extends AppCompatActivity {
+    private ArrayList<Comment> list_comments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_beitrag);
+        setContentView(R.layout.selected_post);
         TextView titel= (TextView)findViewById(R.id.titel_beitrag);
         final TextView beitrag = (TextView)findViewById(R.id.conten_beitrag);
         final EditText comment = (EditText) findViewById(R.id.comment_field);
+        final TextView author = (TextView) findViewById(R.id.author_post_field);
         final Button CommentButton = (Button) findViewById(R.id.submit_comment);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
 
         final String titelString = getIntent().getExtras().get("titel").toString();
-         DatabaseReference root =database.getReference().getRoot().child("Beiträge");
+        final DatabaseReference root =database.getReference().getRoot().child("Beiträge/"+getIntent().getExtras().get("key"));
 
-        root.addChildEventListener(new ChildEventListener() {
+
+
+
+
+        //Fill TextViews with content
+        titel.setText(titelString);
+        beitrag.setText( getIntent().getExtras().get("content").toString());
+        author.setText( getIntent().getExtras().get("author").toString());
+
+
+
+        //Get comments
+
+        ListView commentListe = (ListView) findViewById(R.id.comment_list);
+        final CommentAdapter adapter = new CommentAdapter(this,list_comments);
+        commentListe.setAdapter(adapter);
+
+
+
+
+
+
+        root.child("Kommentare").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                if(dataSnapshot.getKey().equals(titelString)){
-                    beitrag.setText(dataSnapshot.getValue().toString());
-                    System.out.println( "IF-Abfrage: "+dataSnapshot.getValue().toString());
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println("Methode wird ausgeführt");
+                ArrayList<Comment> list_comments_zw = new ArrayList<>();
+                Iterator i = dataSnapshot.getChildren().iterator();
+
+                while (i.hasNext()){
+
+                    list_comments_zw.add(((DataSnapshot)i.next()).getValue(Comment.class));
                 }
-                System.out.println( "IF-Abfrage: "+dataSnapshot.getValue().toString());
-                //System.out.print("datasnapshot"+dataSnapshot.getValue());
-                //System.out.println( "IF-Abfrage: "+dataSnapshot.hasChildren());
-                //beitrag.setText(dataSnapshot.child("forum-5031d/"+titelString).getValue(Message.class).getMessage());
-            }
+                System.out.println(list_comments_zw);
+                list_comments.clear();
+                list_comments.addAll(list_comments_zw);
 
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                beitrag.setText( dataSnapshot.getValue().toString());
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -69,6 +88,10 @@ public class Beitrag extends AppCompatActivity {
 
             }
         });
+
+
+
+
 
 
 
@@ -81,15 +104,17 @@ public class Beitrag extends AppCompatActivity {
                     return;
                 }
                 Map<String, Object> map2 = new HashMap<String, Object>();
-                //database.getReference().getRoot().child("Uhrzeit/Kommentare")
-                map2.put("Autor Johannes", comment.getText().toString());
-                database.getReference().getRoot().child("Uhrzeit/Kommentare").updateChildren(map2);
+                Comment currentComment= new Comment(comment.getText().toString(),"Author Default");
+                //database.getReference().getRoot().child("Uhrzeit/Comment")
+                map2.put(System.currentTimeMillis()+"", currentComment);
+                root.child("Kommentare").updateChildren(map2);
+                comment.setText("");
 
             }
         });
 
 
 
-        titel.setText(titelString);
+
     }
 }

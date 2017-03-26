@@ -29,7 +29,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayList<String> list_posts = new ArrayList<>();
+    private ArrayList<Post> list_posts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,26 +42,26 @@ public class MainActivity extends AppCompatActivity {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference root =database.getReference().getRoot().child("Beiträge");
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list_posts);
-
-        liste.setAdapter(arrayAdapter);
+        //final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,list_posts);
+        final PostAdapter adapter = new PostAdapter(this,list_posts);
+        liste.setAdapter(adapter);
 
 
         root.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("Methode wird ausgeführt");
-                Set<String> set = new HashSet<String>();
+                ArrayList<Post> currentPosts = new ArrayList<Post>();
                 Iterator i = dataSnapshot.getChildren().iterator();
 
                 while (i.hasNext()){
-                    set.add(((DataSnapshot)i.next()).getValue(Post.class).getTitel());
+                    currentPosts.add(((DataSnapshot)i.next()).getValue(Post.class));
                 }
 
                 list_posts.clear();
-                list_posts.addAll(set);
+                list_posts.addAll(currentPosts);
 
-                arrayAdapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -75,9 +75,12 @@ public class MainActivity extends AppCompatActivity {
         liste.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                Post clickedPost = list_posts.get(i);
                 Intent intent = new Intent(getApplicationContext(),Beitrag.class);
-                intent.putExtra("titel",((TextView)view).getText().toString() );
+                intent.putExtra("titel", clickedPost.getTitel());
+                intent.putExtra("content", clickedPost.getContent());
+                intent.putExtra("author", clickedPost.getAuthor());
+                intent.putExtra("key", clickedPost.getKey());
                 startActivity(intent);
             }
         });
